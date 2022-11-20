@@ -9,11 +9,13 @@ class MyTopo(Topo):
 
         org_switches = []
         for i in range(0, 5):
+            h0 = self.addHost('h0_' + str(i))
             h1 = self.addHost('h1_' + str(i))
             h2 = self.addHost('h2_' + str(i))
             h3 = self.addHost('h3_' + str(i))
             h4 = self.addHost('h4_' + str(i))
             org_switch = self.addSwitch('s' + str(i))
+            self.addLink(h0, org_switch)
             self.addLink(h1, org_switch)
             self.addLink(h2, org_switch)
             self.addLink(h3, org_switch)
