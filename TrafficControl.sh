@@ -35,27 +35,41 @@ StopTC(){
 	echo "== TC Stopped =="
 }
 
+InitTopology(){
+	sudo mn --custom ./main.py --topo mytopo &
+}
+
 Main(){
+	clear
 	if [ "$EUID" -ne 0 ]; then
 		echo "Error: Please run as root"
 		exit
 	fi
+	
+	QuitFlag=false
+	while [ $QuitFlag ] ; do
+		echo "==== Select mode ===="
+		echo "1) 	Start traffic control"
+		echo "2) 	Stop traffic control"
+		echo "0) 	Initialize network topology"
+		echo "quit) 	Quit application"
+		read -p "Mode selection: " ModeSelection
+		echo
 
-
-	echo "==== Select mode ===="
-	echo "1) Start traffic control"
-	echo "2) Stop traffic control"
-	read -p "Mode selection: " ModeSelection
-	echo
-
-	case "$ModeSelection" in
-		"1")
-			StartTC ;;
-		"2")
-			StopTC ;;
-		*)
-			echo "Unknown command, abort" ;;
-	esac
+		case "$ModeSelection" in
+			"1")
+				StartTC ;;
+			"2")
+				StopTC ;;
+			"0")
+				InitTopology ;;
+			"quit")
+				$QuitFlag=true ;;
+			*)
+				echo "Unknown command, abort" ;;
+		esac
+	
+	done
 
 	echo "==== End of program ===="
 }
