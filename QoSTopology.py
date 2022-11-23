@@ -23,3 +23,5 @@ class QoSTopology(Topo):
         isp_switch = self.addSwitch('s999')
         for switch in org_switches:
             self.addLink(isp_switch, switch)
+
+topos = {'QoSTopology': (lambda: QoSTopology())}

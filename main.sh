@@ -26,6 +26,7 @@ Main(){
 		echo "==== Select mode ===="
 		echo "1) 	Start Mininet"
 		echo "2) 	Clear Mininet"
+		echo "3) 	Simulate Mininet Topology"
 		echo "0) 	Quit application"
 		read -p "Mode selection: " ModeSelection
 		echo
@@ -36,6 +37,9 @@ Main(){
 				;;
 			"2")
 				CleanMN
+				;;
+			"3")
+				sudo mn --custom ./QoSTopology.py --topo QoSTopology
 				;;
 			"0")
 				echo "==== End of program ===="
