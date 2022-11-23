@@ -2,6 +2,7 @@
 
 StartMN(){
 	sudo python3 main.py
+	read -p "Press ENTER to finish"
 	clear
 	echo -e "** Mininet stopped **"
 	echo -e "** Consider cleaning cache **\n"

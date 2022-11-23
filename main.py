@@ -9,6 +9,7 @@ def main():
     setLogLevel("info")
     mininet = Mininet(topo=QoSTopology(), controller=None)
     mininet.start()
+    mininet[ 'h0_0' ].cmd( 'ping h2_2' )
     CLI(mininet)
     mininet.stop()
 
