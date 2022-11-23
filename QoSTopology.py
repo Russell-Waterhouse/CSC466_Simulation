@@ -1,3 +1,5 @@
+from mininet.topo import Topo
+
 class QoSTopology(Topo):
     """Topology of network test"""
 
