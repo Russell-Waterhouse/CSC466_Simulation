@@ -24,64 +24,102 @@ class QoSTopology(Topo):
     """Topology of network test"""
 
     def build(self):
-        defaultIP = '192.168.1.1/24'  # IP address for r0-eth1
-        router = self.addNode('r0', cls=LinuxRouter, ip=defaultIP)
-
-        s1, s2, s3 = [self.addSwitch(s) for s in ('s1', 's2', 's3')]
-
-        self.addLink(s1, router, intfName2='r0-eth1',
-                     params2={'ip': defaultIP})  # for clarity
-        self.addLink(s2, router, intfName2='r0-eth2',
-                     params2={'ip': '172.16.0.1/12'})
-        self.addLink(s3, router, intfName2='r0-eth3',
-                     params2={'ip': '10.0.0.1/8'})
-
-        h1 = self.addHost('h1', ip='192.168.1.100/24',
-                          defaultRoute='via 192.168.1.1')
-        h2 = self.addHost('h2', ip='172.16.0.100/12',
-                          defaultRoute='via 172.16.0.1')
-        h3 = self.addHost('h3', ip='10.0.0.100/8',
-                          defaultRoute='via 10.0.0.1')
-
-        for h, s in [(h1, s1), (h2, s2), (h3, s3)]:
-            self.addLink(h, s)
-
         """Create the custom network topology"""
 
-        # org_switches = []
-        # org_routers = []
-        # for i in range(0, 5):
-        #     h0 = self.addHost('h0_' + str(i))
-        #     h1 = self.addHost('h1_' + str(i))
-        #     h2 = self.addHost('h2_' + str(i))
-        #     h3 = self.addHost('h3_' + str(i))
-        #     h4 = self.addHost('h4_' + str(i))
-        #     r1 = self.addHost('r' + str(i))
-        #     self.setup_router(r1)
-        #     org_switch = self.addSwitch('s' + str(i))
-        #     self.addLink(h0, org_switch)
-        #     self.addLink(h1, org_switch)
-        #     self.addLink(h2, org_switch)
-        #     self.addLink(h3, org_switch)
-        #     self.addLink(h4, org_switch)
-        #     self.addLink(r1, org_switch)
-        #     org_switches.append(org_switch)
-        #     org_routers.append(r1)
-        # isp_router = self.addHost('r999')
-        # self.setup_router(isp_router)
-        # for router in org_routers:
-        #     self.addLink(isp_router, router)
+        # Step 1, create ISP router
+        isp_router = self.addHost('r999', cls=LinuxRouter, ip='10.0.0.0/24')
+
+        # Step 2, create subnet switches
+        s0, s1, s2, s3, s4 = [self.addSwitch(s) for s in ('s0', 's1', 's2', 's3', 's4')]
+        org_switches = [s0,s1,s2,s3,s4]
+
+
+        # Step 3, setup org routers
+        r0 = self.addHost('r0', cls=LinuxRouter, ip='10.0.0.1/24')
+        r1 = self.addHost('r1', cls=LinuxRouter, ip='10.0.1.1/24')
+        r2 = self.addHost('r2', cls=LinuxRouter, ip='10.0.2.1/24')
+        r3 = self.addHost('r3', cls=LinuxRouter, ip='10.0.3.1/24')
+        r4 = self.addHost('r4', cls=LinuxRouter, ip='10.0.4.1/24')
+
+        # Step 4, setup host-switch links within subnets
+        self.addLink(s0, r0, intfName2='r0-eth1', params2={'ip': '10.0.0.1'})
+        self.addLink(s1, r1, intfName2='r1-eth1', params2={'ip': '10.0.1.1'})
+        self.addLink(s2, r2, intfName2='r2-eth1', params2={'ip': '10.0.2.1'})
+        self.addLink(s3, r3, intfName2='r3-eth1', params2={'ip': '10.0.3.1'})
+        self.addLink(s4, r4, intfName2='r4-eth1', params2={'ip': '10.0.4.1'})
+
+        # Step 5, connect routers together
+        self.addLink(isp_router,
+                     r0,
+                     intfName1='r999-eth1',
+                     intfName2='r0-eth2',
+                     params1={'ip': '10.100.0.1/24'},
+                     params2={'ip': '10.100.0.2/24'})
+        self.addLink(isp_router,
+                     r1,
+                     intfName1='r999-eth2',
+                     intfName2='r1-eth2',
+                     params1={'ip': '10.100.0.1/24'},
+                     params2={'ip': '10.100.0.2/24'})
+        self.addLink(isp_router,
+                     r2,
+                     intfName1='r999-eth3',
+                     intfName2='r2-eth2',
+                     params1={'ip': '10.100.0.1/24'},
+                     params2={'ip': '10.100.0.2/24'})
+        self.addLink(isp_router,
+                     r3,
+                     intfName1='r999-eth4',
+                     intfName2='r3-eth2',
+                     params1={'ip': '10.100.0.1/24'},
+                     params2={'ip': '10.100.0.2/24'})
+        self.addLink(isp_router,
+                     r4,
+                     intfName1='r999-eth5',
+                     intfName2='r4-eth2',
+                     params1={'ip': '10.100.0.1/24'},
+                     params2={'ip': '10.100.0.2/24'})
+
+        for i in range(0, 5):
+            # Add hosts and host-switch links
+            org_switch = org_switches[i]
+            org_num = str(i)
+            h0 = self.addHost(name='h0_' + str(i),
+                              ip='10.0.' + org_num + '.200/24',
+                              defaultRoute='via 10.0.' + org_num + '.1')
+            h1 = self.addHost('h1_' + str(i),
+                              ip='10.0.' + org_num + '.200/24',
+                              defaultRoute='via 10.0.' + org_num + '.1')
+            h2 = self.addHost('h2_' + str(i),
+                              ip='10.0.' + org_num + '.200/24',
+                              defaultRoute='via 10.0.' + org_num + '.1')
+            h3 = self.addHost('h3_' + str(i),
+                              ip='10.0.' + org_num + '.200/24',
+                              defaultRoute='via 10.0.' + org_num + '.1')
+            h4 = self.addHost('h4_' + str(i),
+                              ip='10.0.' + org_num + '.200/24',
+                              defaultRoute='via 10.0.' + org_num + '.1')
+            r1 = self.addHost('r' + str(i),
+                              ip='10.0.' + org_num + '.200/24',
+                              defaultRoute='via 10.0.' + org_num + '.1')
+            self.addLink(h0, org_switch)
+            self.addLink(h1, org_switch)
+            self.addLink(h2, org_switch)
+            self.addLink(h3, org_switch)
+            self.addLink(h4, org_switch)
+            self.addLink(r1, org_switch)
 
 
 def run():
     "Test linux router"
     topo = QoSTopology()
-    net = Mininet( topo=topo )  # controller is used by s1-s3
+    net = Mininet( topo=topo )  # controller is used by switches
     net.start()
     info( '*** Routing Table on Router:\n' )
     print(net[ 'r0' ].cmd( 'route' ))
     CLI( net )
     net.stop()
+
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
