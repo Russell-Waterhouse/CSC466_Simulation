@@ -51,8 +51,8 @@ class QoSTopology(Topo):
         # Step 5, connect routers together
         self.addLink(isp_router,
                      r0,
-                     intfName1='r999-eth9',
-                     intfName2='r0-eth8',
+                     intfName1='r999-eth1',
+                     intfName2='r0-eth3',
                      params1={'ip': '10.100.0.1/24'},
                      params2={'ip': '10.100.0.2/24'})
         self.addLink(isp_router,
