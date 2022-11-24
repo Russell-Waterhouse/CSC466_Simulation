@@ -58,25 +58,25 @@ class QoSTopology(Topo):
         self.addLink(isp_router,
                      r1,
                      intfName1='r999-eth2',
-                     intfName2='r1-eth2',
+                     intfName2='r1-eth3',
                      params1={'ip': '10.100.0.1/24'},
                      params2={'ip': '10.100.0.2/24'})
         self.addLink(isp_router,
                      r2,
                      intfName1='r999-eth3',
-                     intfName2='r2-eth2',
+                     intfName2='r2-eth3',
                      params1={'ip': '10.100.0.1/24'},
                      params2={'ip': '10.100.0.2/24'})
         self.addLink(isp_router,
                      r3,
                      intfName1='r999-eth4',
-                     intfName2='r3-eth2',
+                     intfName2='r3-eth3',
                      params1={'ip': '10.100.0.1/24'},
                      params2={'ip': '10.100.0.2/24'})
         self.addLink(isp_router,
                      r4,
                      intfName1='r999-eth5',
-                     intfName2='r4-eth2',
+                     intfName2='r4-eth3',
                      params1={'ip': '10.100.0.1/24'},
                      params2={'ip': '10.100.0.2/24'})
 
