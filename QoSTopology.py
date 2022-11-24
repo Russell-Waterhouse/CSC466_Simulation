@@ -126,4 +126,3 @@ if __name__ == '__main__':
     setLogLevel( 'info' )
     run()
 
-# topos = {'QoSTopology': (lambda: QoSTopology())}

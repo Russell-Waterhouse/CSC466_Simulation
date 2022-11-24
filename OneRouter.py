@@ -1,5 +1,11 @@
 from QoSTopology import LinuxRouter
 from mininet.topo import Topo
+from mininet.topo import Topo
+from mininet.net import Mininet
+from mininet.node import Node
+from mininet.log import setLogLevel, info
+from mininet.cli import CLI
+from mininet.topo import Topo
 
 class OneRouter(Topo):
 
@@ -25,4 +31,19 @@ class OneRouter(Topo):
 
         for h, s in [(h1, s1), (h2, s2), (h3, s3)]:
             self.addLink(h, s)
+
+def run():
+    "Test linux router"
+    topo = OneRouter()
+    net = Mininet( topo=topo )  # controller is used by switches
+    net.start()
+    info( '*** Routing Table on Router:\n' )
+    print(net[ 'r0' ].cmd( 'route' ))
+    CLI( net )
+    net.stop()
+
+
+if __name__ == '__main__':
+    setLogLevel( 'info' )
+    run()
 
