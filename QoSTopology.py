@@ -84,6 +84,7 @@ class QoSTopology(Topo):
             # Add hosts and host-switch links
             org_switch = org_switches[i]
             org_num = str(i)
+            print("Creating the hosts")
             h0 = self.addHost(name='h0_' + str(i),
                               ip='10.0.' + org_num + '.200/24',
                               defaultRoute='via 10.0.' + org_num + '.1')
