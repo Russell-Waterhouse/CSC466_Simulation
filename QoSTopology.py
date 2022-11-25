@@ -43,73 +43,70 @@ class QoSTopology(Topo):
         r4 = self.addHost('r4', cls=LinuxRouter, ip='10.0.4.1/24')
 
         # Step 4, setup host-switch links within subnets
-        self.addLink(s0, r0, intfName2='r0-eth1', params2={'ip': '10.0.0.1'})
-        self.addLink(s1, r1, intfName2='r1-eth1', params2={'ip': '10.0.1.1'})
-        self.addLink(s2, r2, intfName2='r2-eth1', params2={'ip': '10.0.2.1'})
-        self.addLink(s3, r3, intfName2='r3-eth1', params2={'ip': '10.0.3.1'})
-        self.addLink(s4, r4, intfName2='r4-eth1', params2={'ip': '10.0.4.1'})
+        self.addLink(s0, r0, intfName2='r0-eth1', params2={'ip': '10.0.0.1/24'})
+        self.addLink(s1, r1, intfName2='r1-eth1', params2={'ip': '10.0.1.1/24'})
+        self.addLink(s2, r2, intfName2='r2-eth1', params2={'ip': '10.0.2.1/24'})
+        self.addLink(s3, r3, intfName2='r3-eth1', params2={'ip': '10.0.3.1/24'})
+        self.addLink(s4, r4, intfName2='r4-eth1', params2={'ip': '10.0.4.1/24'})
 
         # Step 5, connect routers together
         self.addLink(isp_router,
                      r0,
                      intfName1='r999-eth1',
                      intfName2='r0-eth3',
-                     params1={'ip': '10.100.0.1/24'},
-                     params2={'ip': '10.100.0.2/24'})
+                     params1={'ip': '10.0.0.0/24'},
+                     params2={'ip': '10.0.0.1/24'})
         self.addLink(isp_router,
                      r1,
                      intfName1='r999-eth2',
                      intfName2='r1-eth3',
-                     params1={'ip': '10.100.0.1/24'},
-                     params2={'ip': '10.100.0.2/24'})
+                     params1={'ip': '10.0.0.0/24'},
+                     params2={'ip': '10.0.1.1/24'})
         self.addLink(isp_router,
                      r2,
                      intfName1='r999-eth3',
                      intfName2='r2-eth3',
-                     params1={'ip': '10.100.0.1/24'},
-                     params2={'ip': '10.100.0.2/24'})
+                     params1={'ip': '10.0.0.0/24'},
+                     params2={'ip': '10.0.2.1/24'})
         self.addLink(isp_router,
                      r3,
                      intfName1='r999-eth4',
                      intfName2='r3-eth3',
-                     params1={'ip': '10.100.0.1/24'},
-                     params2={'ip': '10.100.0.2/24'})
+                     params1={'ip': '10.0.0.0/24'},
+                     params2={'ip': '10.0.3.1/24'})
         self.addLink(isp_router,
                      r4,
                      intfName1='r999-eth5',
                      intfName2='r4-eth3',
-                     params1={'ip': '10.100.0.1/24'},
-                     params2={'ip': '10.100.0.2/24'})
+                     params1={'ip': '10.0.0.0/24'},
+                     params2={'ip': '10.0.4.1/24'})
 
         for i in range(0, 5):
             # Add hosts and host-switch links
             org_switch = org_switches[i]
             org_num = str(i)
             print("Creating the hosts")
-            h0 = self.addHost(name='h0_' + str(i),
-                              ip='10.0.' + org_num + '.200/24',
+            h0 = self.addHost(f'h{str(i)}_0',
+                              ip='10.0.' + org_num + '.100/24',
                               defaultRoute='via 10.0.' + org_num + '.1')
-            h1 = self.addHost('h1_' + str(i),
-                              ip='10.0.' + org_num + '.200/24',
+            h1 = self.addHost(f'h{str(i)}_1',
+                              ip='10.0.' + org_num + '.101/24',
                               defaultRoute='via 10.0.' + org_num + '.1')
-            h2 = self.addHost('h2_' + str(i),
-                              ip='10.0.' + org_num + '.200/24',
+            h2 = self.addHost(f'h{str(i)}_2',
+                              ip='10.0.' + org_num + '.102/24',
                               defaultRoute='via 10.0.' + org_num + '.1')
-            h3 = self.addHost('h3_' + str(i),
-                              ip='10.0.' + org_num + '.200/24',
+            h3 = self.addHost(f'h{str(i)}_3',
+                              ip='10.0.' + org_num + '.103/24',
                               defaultRoute='via 10.0.' + org_num + '.1')
-            h4 = self.addHost('h4_' + str(i),
-                              ip='10.0.' + org_num + '.200/24',
+            h4 = self.addHost(f'h{str(i)}_4',
+                              ip='10.0.' + org_num + '.104/24',
                               defaultRoute='via 10.0.' + org_num + '.1')
-            r1 = self.addHost('r' + str(i),
-                              ip='10.0.' + org_num + '.200/24',
-                              defaultRoute='via 10.0.' + org_num + '.1')
+
             self.addLink(h0, org_switch)
             self.addLink(h1, org_switch)
             self.addLink(h2, org_switch)
             self.addLink(h3, org_switch)
             self.addLink(h4, org_switch)
-            self.addLink(r1, org_switch)
 
 
 def run():
