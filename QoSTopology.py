@@ -20,6 +20,7 @@ class LinuxRouter( Node ):
         super( LinuxRouter, self ).terminate()
 
 
+
 class QoSTopology(Topo):
     """Topology of network test"""
 
@@ -125,4 +126,8 @@ def run():
 if __name__ == '__main__':
     setLogLevel( 'info' )
     run()
+
+
+
+topos = {'QoSTopology': (lambda: QoSTopology())}
 
