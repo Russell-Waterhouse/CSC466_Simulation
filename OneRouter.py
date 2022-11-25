@@ -37,8 +37,8 @@ def run():
     topo = OneRouter()
     net = Mininet( topo=topo )  # controller is used by switches
     net.start()
-    info( '*** Routing Table on Router:\n' )
-    print(net[ 'r0' ].cmd( 'route' ))
+    #info( '*** Routing Table on Router:\n' )
+    #print(net[ 'r0' ].cmd( 'route' ))
     CLI( net )
     net.stop()
 

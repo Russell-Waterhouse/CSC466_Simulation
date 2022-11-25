@@ -1,3 +1,5 @@
+from mininet.node import RemoteController
+
 from QoSTopology import QoSTopology
 
 from mininet.net import Mininet
@@ -45,8 +47,8 @@ def main():
     dumpNodeConnections(mininet.switches)
 
     print("==== Configure traffic control ====")
-    setup_org_tc(mininet)
-    set_isp_tc(mininet)
+    # setup_org_tc(mininet)
+    # set_isp_tc(mininet)
 
     CLI(mininet)
     mininet.stop()
