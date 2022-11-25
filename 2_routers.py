@@ -1,8 +1,5 @@
 from QoSTopology import LinuxRouter
-from mininet.topo import Topo
-from mininet.topo import Topo
 from mininet.net import Mininet
-from mininet.node import Node
 from mininet.log import setLogLevel, info
 from mininet.cli import CLI
 from mininet.topo import Topo
@@ -11,7 +8,7 @@ from mininet.topo import Topo
 class TwoRouters(Topo):
 
     def build(self):
-# Add 2 routers in two different subnets
+        # Add 2 routers in two different subnets
         r1 = self.addHost('r1', cls=LinuxRouter, ip='10.0.0.1/24')
         r2 = self.addHost('r2', cls=LinuxRouter, ip='10.1.0.1/24')
 
@@ -51,17 +48,18 @@ class TwoRouters(Topo):
         self.addLink(d2, s2)
 
 def run():
-    "Test linux router"
     topo = TwoRouters()
-    net = Mininet( topo=topo )  # controller is used by switches
+    net = Mininet(topo=topo)
+
+    # Add routing for reaching networks that aren't directly connected
+    info(net['r1'].cmd("ip route add 10.1.0.0/24 via 10.100.0.2 dev r1-eth2"))
+    info(net['r2'].cmd("ip route add 10.0.0.0/24 via 10.100.0.1 dev r2-eth2"))
+
     net.start()
-    info( '*** Routing Table on Router:\n' )
-    print(net[ 'r1' ].cmd( 'route' ))
-    CLI( net )
+    CLI(net)
     net.stop()
 
-
 if __name__ == '__main__':
-    setLogLevel( 'info' )
+    setLogLevel('info')
     run()
 
