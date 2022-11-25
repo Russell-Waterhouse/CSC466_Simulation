@@ -2,8 +2,8 @@ from mininet.topo import Topo
 from mininet.node import Node
 
 # The number of organizations and the number of hosts
-ORG_COUNT = 1
-HOST_COUNT = 3
+ORG_COUNT = 5
+HOST_COUNT = 5
 
 # General ip setup for org K => 10.K.PREFIX.ID
 HOST_PREFIX = 0
@@ -42,7 +42,7 @@ class QoSTopology(Topo):
             router_obj = self.addHost(f'r{org_id}', cls=LinuxRouter, ip=router_ip)
 
             # Connect the router to the ISP
-            self.addLink(isp_router, router_obj,
+            self.addLink(router_obj, isp_router,
                          intfName1=f'r999-eth{org_id}', intfName2=f'r{org_id}-eth2',
                          params1={'ip': router_ip}, params2={'ip': isp_ip})
 
@@ -51,7 +51,7 @@ class QoSTopology(Topo):
             switch_obj = self.addSwitch(f"s{org_id}")
 
             # Connect the router and the switch in a two-way connection
-            self.addLink(router_obj, switch_obj,
+            self.addLink(switch_obj, router_obj,
                          intfName2=f'r{org_id}-eth1',
                          params2={'ip': router_ip})
 
@@ -64,7 +64,7 @@ class QoSTopology(Topo):
                                         defaultRoute=f'via {router_ip}')
 
                 # Connect the host to it's switch
-                self.addLink(host_obj, switch_obj,
+                self.addLink(switch_obj,host_obj,
                              intfName2=f'h{host_id}-eth1',
                              params2={'ip': host_ip})
 
