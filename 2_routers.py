@@ -56,7 +56,7 @@ def run():
     net = Mininet( topo=topo )  # controller is used by switches
     net.start()
     info( '*** Routing Table on Router:\n' )
-    print(net[ 'r0' ].cmd( 'route' ))
+    print(net[ 'r1' ].cmd( 'route' ))
     CLI( net )
     net.stop()
 
