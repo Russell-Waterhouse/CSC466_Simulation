@@ -109,10 +109,50 @@ class QoSTopology(Topo):
             self.addLink(r1, org_switch)
 
 
+def configure_routers(net):
+    """This function sets up forwarding for router-router connections.
+    This can only be done after mininet.start() has been called
+    This function is tightly couple to QoSTopology.py"""
+    ORG_COUNT = 5
+    ROUTER_PREFIX=2
+    isp_ip = "10.0.0.0/24"
+    # add isp -> org router connections
+    org_id = 0
+    router_name = 'r' + str(org_id)
+    isp_router_name = 'r999'
+    router_ip = f'10.{org_id}.{ROUTER_PREFIX}.0/24'
+    info(net[isp_router_name].cmd(f"ip route add 10.0.0.1/24 via 10.100.0.2 dev {isp_router_name}-eth{1}"))
+
+    # r0 = self.addHost('r0', cls=LinuxRouter, ip='10.0.0.1/24')
+    # self.addLink(isp_router,
+    #              r0,
+    #              intfName1='r999-eth1',
+    #              intfName2='r0-eth3',
+    #              params1={'ip': '10.100.0.1/24'},
+    #              params2={'ip': '10.100.0.2/24'})
+    #
+    # info(net['r1'].cmd("ip route add 10.1.0.0/24 via 10.100.0.2 dev r1-eth2"))
+    # r2 = self.addHost('r2', cls=LinuxRouter, ip='10.1.0.1/24')
+    # self.addLink(r1,
+    #              r2,
+    #              intfName1='r1-eth2',
+    #              intfName2='r2-eth2',
+    #              params1={'ip': '10.100.0.1/24'},
+    #              params2={'ip': '10.100.0.2/24'})
+
+    # for org_id in range(0, ORG_COUNT):
+    #     router_name = 'r' + str(org_id)
+    #     isp_router_name = 'r999'
+    #     router_ip = f'10.{org_id}.{ROUTER_PREFIX}.0/24'
+    #     info(net[isp_router_name].cmd(f"ip route add {router_ip} via {router_ip} dev {isp_router_name}-eth{org_id}"))
+    #     info(net[router_name].cmd(f"ip route add 10.0.0.0/8 via {isp_ip} dev {router_name}-eth2"))
+
+
 def run():
     "Test linux router"
     topo = QoSTopology()
     net = Mininet( topo=topo )  # controller is used by switches
+    configure_routers(net)
     net.start()
     info( '*** Routing Table on Router:\n' )
     print(net[ 'r0' ].cmd( 'route' ))
