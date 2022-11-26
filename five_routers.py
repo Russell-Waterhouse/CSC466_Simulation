@@ -42,12 +42,12 @@ class TwoRouters(Topo):
                      params1={'ip': '10.100.0.1/24'},
                      params2={'ip': '10.100.0.2/24'})
 
-        # self.addLink(r1,
-        #              r3,
-        #              intfName1='r1-eth2',
-        #              intfName2='r3-eth2',
-        #              params1={'ip': '10.100.0.1/24'},
-        #              params2={'ip': '10.100.0.3/24'})
+        self.addLink(r1,
+                     r3,
+                     intfName1='r1-eth3',
+                     intfName2='r3-eth2',
+                     params1={'ip': '10.100.0.1/24'},
+                     params2={'ip': '10.100.0.3/24'})
 
         # Adding hosts specifying the default route
         d1 = self.addHost(name='d1',
