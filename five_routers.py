@@ -57,7 +57,7 @@ class TwoRouters(Topo):
                           ip='10.1.0.252/24',
                           defaultRoute='via 10.1.0.1')
         d3 = self.addHost(name='d3',
-                          ip='10.1.0.253/24',
+                          ip='10.3.0.253/24',
                           defaultRoute='via 10.3.0.1')
 
 
