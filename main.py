@@ -1,6 +1,5 @@
 from QoSTopology import QoSTopology
 
-from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.log import setLogLevel
 from mininet.cli import CLI
