@@ -46,8 +46,8 @@ class TwoRouters(Topo):
                      r3,
                      intfName1='r1-eth3',
                      intfName2='r3-eth2',
-                     params1={'ip': '10.100.0.1/24'},
-                     params2={'ip': '10.100.0.3/24'})
+                     params1={'ip': '10.101.0.1/24'},
+                     params2={'ip': '10.101.0.2/24'})
 
         # Adding hosts specifying the default route
         d1 = self.addHost(name='d1',
@@ -71,8 +71,8 @@ def run():
     net = Mininet(topo=topo)
 
     # Add routing for reaching networks that aren't directly connected
-    info(net['r1'].cmd("ip route add 10.1.0.0/24 via 10.100.0.2 dev r1-eth2"))
-    info(net['r2'].cmd("ip route add 10.0.0.0/24 via 10.100.0.1 dev r2-eth2"))
+    info(net['r1'].cmd("ip route add 10.1.0.0/24 via 10.100.0.2 dev r1-eth2")) #r1 -> r2
+    info(net['r2'].cmd("ip route add 10.0.0.0/24 via 10.100.0.1 dev r2-eth2")) #r2 -> r1
 
     net.start()
     CLI(net)
