@@ -4,7 +4,8 @@ A repo all about the simulation we will be running on mininet
 # About the Configuration
 
 Inspired by the [mininet custom topologies](https://mininet.org/walkthrough/#custom-topologies) section, I have created main.py. 
-This sets up the network topology similar to this photo: ![image](https://user-images.githubusercontent.com/39814909/202114359-b1702e19-836d-4b83-9eda-b69eb2584009.png)
+This sets up the network topology similar to this photo: 
+![image](https://user-images.githubusercontent.com/39814909/204109878-a6d22fa5-a9d5-494a-8810-af2b127b1687.png)
 
 # How it runs
 Use main.sh to run Mininet
