@@ -9,7 +9,7 @@ class TwoRouters(Topo):
 
     def build(self):
         # Add 2 routers in two different subnets
-        r999 = self.addHost('r999', cls=LinuxRouter, ip='10.99.0.0/24')
+        r999 = self.addHost('r999', cls=LinuxRouter, ip='10.0.0.0/8')
         r1 = self.addHost('r1', cls=LinuxRouter, ip='10.0.0.1/24')
         r2 = self.addHost('r2', cls=LinuxRouter, ip='10.1.0.1/24')
 
