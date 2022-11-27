@@ -1,7 +1,15 @@
 #!/bin/bash
 
 StartMN(){
-	sudo python3 main.py
+	sudo python3 start_mininet_full.py
+	read -p "Press ENTER to finish"
+	clear
+	echo -e "** Mininet stopped **"
+	echo -e "** Consider cleaning cache **\n"
+}
+
+StartSimpleMN(){
+  sudo python3 start_mininet.py
 	read -p "Press ENTER to finish"
 	clear
 	echo -e "** Mininet stopped **"
@@ -27,6 +35,7 @@ Main(){
 		echo "1) 	Start Mininet"
 		echo "2) 	Clear Mininet"
 		echo "3) 	Simulate Mininet Topology"
+		echo "4) 	Configure settings"
 		echo "0) 	Quit application"
 		read -p "Mode selection: " ModeSelection
 		echo
@@ -39,11 +48,11 @@ Main(){
 				CleanMN
 				;;
 			"3")
-				sudo mn --custom ./QoSTopology.py --topo QoSTopology
-					read -p "Press ENTER to finish"
-          clear
-          echo -e "** Mininet stopped **"
-          echo -e "** Consider cleaning cache **\n"
+				StartSimpleMN
+				;;
+      "4")
+				nano settings.json
+				clear
 				;;
 			"0")
 				echo "==== End of program ===="
