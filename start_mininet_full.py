@@ -29,7 +29,7 @@ def main():
 
     print("==== Dumping host connections ====")
     CLI(mininet, script="mininet_init.sh")
-    
+
     CLI(mininet)
     mininet.stop()
 
