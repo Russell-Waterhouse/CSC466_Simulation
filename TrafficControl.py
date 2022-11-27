@@ -9,7 +9,7 @@ def get_settings(file_name="settings.json"):
 
 
 # Set up a interface with 3 class network shaping (For ISP node)
-def setup_prioritization_interface(node, interface, settings=get_settings()["TrafficControl"]["TrafficControl"]):
+def setup_prioritization_interface(node, interface, settings=get_settings()["TrafficControl"]["QoSSettings"]):
     # Setup root qdisc
     node.cmd(f"tc qdisc add dev {interface} root handle 1:0 htb default 30")
 
