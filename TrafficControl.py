@@ -1,19 +1,23 @@
-import json
-
-
-# Read setting from json
-def get_settings(file_name="settings.json"):
-    with open(file_name, "r") as file:
-        data = json.load(file)
-        return data
+from util import get_settings
 
 
 # Configure the org switches so they simulate bad networks
-def configure_org_switches(mininet, switch_info=get_settings()["RouterInfo"]["OrgSwitches"]):
+def configure_org_switches_with_settings(mininet, switch_info=get_settings()["RouterInfo"]["OrgSwitches"]):
     for (switch_name, interface) in switch_info.items():
         print("Configuring org switch =>", switch_name, interface)
         node = mininet[switch_name]
         setup_delay_interface(node, interface)
+
+
+# Configure the org switches so they simulate bad networks
+def configure_org_switches(mininet, simulation_size=get_settings()["RouterInfo"]["SimulationSize"]):
+    pass
+    # org_count = simulation_size["OrgCount"]
+    # host_count = simulation_size["HostCount"]
+    # for (switch_name, interface) in switch_info.items():
+    #     print("Configuring org switch =>", switch_name, interface)
+    #     node = mininet[switch_name]
+    #     setup_delay_interface(node, interface)
 
 
 # Configure the ISP node so all of its interfaces have QoS Traffic control
@@ -64,6 +68,7 @@ def setup_delay_interface(node, interface, settings=get_settings()["TrafficContr
         f'''tc qdisc add dev {interface} parent 1:0 handle 2:0 \
         tbf rate {settings['OrgRate']} burst {settings['OrgBurst']} limit {settings['OrgBurstLimit']}'''
     )
+
 
 # Remove root tc
 def clear_tc(node, interface):

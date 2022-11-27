@@ -27,6 +27,10 @@
     }
   },
   "RouterInfo":{
+    "SimulationSize": {
+      "OrgCount" : 5,
+      "HostCount" : 5
+    },
     "OrgSwitches": {
       "s0": "s0-eth6",
       "s1": "s1-eth6",
