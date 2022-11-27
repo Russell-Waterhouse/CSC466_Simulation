@@ -16,8 +16,8 @@ def configure_org_switches(mininet, simulation_size=get_settings()["RouterInfo"]
     host_count = simulation_size["HostCount"]
     for org_id in range(org_count):
         for host_id in range(host_count):
-            switch_name = gen_switch_name(org_id)
-            interface = gen_switch_ISP_infname(org_id)[0]
+            switch_name = get_switch_name(org_id)
+            interface = get_switch_ISP_infname(org_id)[0]
             print("Configuring org switch =>", switch_name, interface)
             setup_delay_interface(mininet[switch_name], interface)
 
@@ -32,11 +32,11 @@ def configure_isp_with_settings(isp_node, isp_interfaces=get_settings()["RouterI
 
 # Configure the ISP node so all of its interfaces have QoS Traffic control
 def configure_isp(mininet, simulation_size=get_settings()["RouterInfo"]["SimulationSize"]):
-    isp_name = gen_isp_name()
+    isp_name = get_isp_name()
     isp_node = mininet[isp_name]
     org_count = simulation_size["OrgCount"]
     for org_id in range(org_count):
-        interface = gen_switch_ISP_infname(org_id)[1]
+        interface = get_switch_ISP_infname(org_id)[1]
         print("Configuring ISP interface=>", interface)
         setup_prioritization_interface(isp_node, interface)
 
