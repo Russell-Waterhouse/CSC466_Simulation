@@ -27,6 +27,7 @@ Main(){
 		echo "1) 	Start Mininet"
 		echo "2) 	Clear Mininet"
 		echo "3) 	Simulate Mininet Topology"
+		echo "4) 	Configure settings"
 		echo "0) 	Quit application"
 		read -p "Mode selection: " ModeSelection
 		echo
@@ -44,6 +45,10 @@ Main(){
           clear
           echo -e "** Mininet stopped **"
           echo -e "** Consider cleaning cache **\n"
+				;;
+      "4")
+				nano settings.json
+				clear
 				;;
 			"0")
 				echo "==== End of program ===="
