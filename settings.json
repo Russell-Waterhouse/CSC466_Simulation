@@ -1,18 +1,29 @@
 {
-  "TrafficControl" : {
-    "TotalBandwidth": "100 mbit",
+  "TrafficControl": {
+    "QoSSettings": {
+      "TotalBandwidth": "100 mbit",
 
-    "SlowPort": 100,
-    "SlowRate": "30 mbit",
-    "SlowCeil": "50 mbit",
+      "SlowID": "1:10",
+      "SlowPort": 100,
+      "SlowRate": "30 mbit",
+      "SlowCeil": "50 mbit",
 
-    "MidPort": 200,
-    "MidRate": "50 mbit",
-    "MidCeil": "80 mbit",
+      "MidID": "1:20",
+      "MidPort": 200,
+      "MidRate": "50 mbit",
+      "MidCeil": "80 mbit",
 
-    "FastPort": 300,
-    "FastRate": "80 mbit",
-    "FastCeil": "100 mbit",
-
+      "FastID": "1:30",
+      "FastPort": 300,
+      "FastRate": "80 mbit",
+      "FastCeil": "100 mbit"
+    },
+    "OrgSettings": {
+      "OrgDelay": "100ms 10ms",
+      "OrgLost": "10%",
+      "OrgRate": "200mbit",
+      "OrgBurst": "10mbit",
+      "OrgBurstLimit": "20mbit"
+    }
   }
 }

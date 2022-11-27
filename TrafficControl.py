@@ -1,46 +1,60 @@
 import json
 
 
-def U32(interface, parent): return f"tc filter add dev {interface} protocol ip parent {parent} prio 1 u32"
-
-
-def filter_command(port):
-    return f"u32 match ip sport {port}"
-
-
+# Read setting from json
 def get_settings(file_name="settings.json"):
     with open(file_name, "r") as file:
         data = json.load(file)
         return data
 
 
-def setup_interface(node, interface):
-    settings = get_settings()["TrafficControl"]
-
+# Set up a interface with 3 class network shaping (For ISP node)
+def setup_prioritization_interface(node, interface, settings=get_settings()["TrafficControl"]["TrafficControl"]):
     # Setup root qdisc
     node.cmd(f"tc qdisc add dev {interface} root handle 1:0 htb default 30")
 
     # Setup speed limiter qdisc
     node.cmd(
-        f'''tc qdisc add dev {interface} parent 1:0 classid 1:1 htb 
-        rate {settings['TotalBandwidth']} ceil {settings['TotalBandwidth']}'''
+        f'''tc qdisc add dev {interface} parent 1:0 classid 1:1 
+        htb rate {settings['TotalBandwidth']} ceil {settings['TotalBandwidth']}'''
     )
 
     # Setup class speed
+    for (rate, ceil, htb_id) in [
+        (settings['SlowRate'], settings['SlowCeil'], settings['SlowID']),
+        (settings['MidRate'], settings['MidCeil'], settings['MidID']),
+        (settings['FastRate'], settings['FastCeil'], settings['FastID'])
+    ]:
+        node.cmd(
+            f'''tc class add dev {interface} parent 1:1 classid {htb_id} 
+            htb rate {rate} ceil {ceil}'''
+        )
+
+    # Setup filters TODO: make match statement
+    # for (port, flow_id) in [
+    #     (settings['SlowPort'], settings['SlowID']),
+    #     (settings['MidPort'], settings['MidID']),
+    #     (settings['FastPort'], settings['FastID'])
+    # ]:
+    #     node.cmd(
+    #         f'''tc filter add dev {interface} parent 1:0 protocol ip prio 10
+    #         u32 match port {port} flowid {flow_id}
+    #         '''
+    #     )
+
+
+# Set up
+def setup_delay_interface(node, interface, settings=get_settings()["TrafficControl"]["OrgSettings"]):
     node.cmd(
-        f'''tc qdisc add dev {interface} parent 1:1 classid 1:10 htb 
-        rate {settings['SlowRate']} ceil {settings['SlowCeil']}'''
+        f'''tc qdisc add dev {interface} root handle 1:0 
+        netem delay {settings['OrgDelay']} loss {settings['OrgLost']}'''
     )
     node.cmd(
-        f'''tc qdisc add dev {interface} parent 1:1 classid 1:10 htb 
-        rate {settings['MidRate']} ceil {settings['MidCeil']}'''
-    )
-    node.cmd(
-        f'''tc qdisc add dev {interface} parent 1:1 classid 1:10 htb 
-        rate {settings['FastRate']} ceil {settings['FastCeil']}'''
+        f'''tc qdisc add dev {interface} parent 1:0 handle 2:0 
+        tbf rate {settings['OrgRate']} burst {settings['OrgBurst']} limit {settings['OrgBurstLimit']}'''
     )
 
-    # Setup filters
-    node.cmd(
-        f'''tc filter add dev {interface} protocol ip parent 1:0 prio 1 u32'''
-    )
+
+# Remove root tc
+def clear_tc(node, interface):
+    node.cmd(f"tc qdisc del dev {interface} root")
