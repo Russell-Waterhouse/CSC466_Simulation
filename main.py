@@ -28,7 +28,8 @@ def main():
     dumpNodeConnections(mininet.switches)
 
     print("==== Configure traffic control ====")
-    # TODO: setup tc
+    configure_org_switches(mininet)
+    configure_isp(mininet["s999"])
 
     CLI(mininet)
     mininet.stop()

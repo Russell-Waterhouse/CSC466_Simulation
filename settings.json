@@ -25,5 +25,17 @@
       "OrgBurst": "10mbit",
       "OrgBurstLimit": "20mbit"
     }
+  },
+  "RouterInfo":{
+    "OrgSwitches": {
+      "s0": "s0-eth6",
+      "s1": "s1-eth6",
+      "s2": "s2-eth6",
+      "s3": "s3-eth6",
+      "s4": "s4-eth6"
+    },
+    "ISPInterfaces": [
+      "s999-eth1", "s999-eth2","s999-eth3", "s999-eth4","s999-eth5"
+    ]
   }
 }
