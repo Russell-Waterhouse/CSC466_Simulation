@@ -40,6 +40,10 @@ Main(){
 				;;
 			"3")
 				sudo mn --custom ./QoSTopology.py --topo QoSTopology
+					read -p "Press ENTER to finish"
+          clear
+          echo -e "** Mininet stopped **"
+          echo -e "** Consider cleaning cache **\n"
 				;;
 			"0")
 				echo "==== End of program ===="
