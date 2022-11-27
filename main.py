@@ -23,14 +23,13 @@ def main():
     mininet = Mininet(topo=QoSTopology())
     mininet.start()
 
-    print("==== Dumping host connections ====")
-    dumpNodeConnections(mininet.hosts)
-    dumpNodeConnections(mininet.switches)
-
     print("==== Configure traffic control ====")
-    configure_org_switches(mininet)
-    configure_isp(mininet["s999"])
+    # configure_org_switches(mininet)
+    # configure_isp(mininet)
 
+    print("==== Dumping host connections ====")
+    CLI(mininet, script="mininet_init.sh")
+    
     CLI(mininet)
     mininet.stop()
 

@@ -12,15 +12,15 @@ def gen_isp_name(): return "s999"
 
 
 # Generate the org switch name by org id
-def gen_switch_name(org_id): return f"s{org_id}"
+def gen_switch_name(org_id): return f"s{org_id + 1}"
 
 
 # Generate the host name by org id and host id
-def gen_host_name(org_id, host_id): return f"h{org_id}_{host_id}"
+def gen_host_name(org_id, host_id): return f"h{org_id + 1}_{host_id + 1}"
 
 
 # Generate the host ip by org id and host id
-def gen_host_ip(org_id, host_id): return f"10.0.{org_id}.{host_id}/48"
+def gen_host_ip(org_id, host_id): return f"10.0.{org_id + 1}.{host_id + 1}/48"
 
 
 # Generate the org switch to isp interface name by org id

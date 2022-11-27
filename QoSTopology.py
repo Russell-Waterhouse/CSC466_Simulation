@@ -10,16 +10,18 @@ class QoSTopology(Topo):
         settings = get_settings()["RouterInfo"]["SimulationSize"]
 
         isp_switch = self.addSwitch(gen_isp_name())
-        for org_id in range(1, settings["OrgCount"] + 1):
+        for org_id in range(settings["OrgCount"]):
             org_switch = self.addSwitch(gen_switch_name(org_id))
             interface_names = gen_switch_ISP_infname(org_id)
-            self.addLink(org_switch, isp_switch,
-                         intfName1=interface_names[0], intfName2=interface_names[1])
-            for host_id in range(1, settings["HostCount"] + 1):
+            print(interface_names)
+            self.addLink(isp_switch,org_switch)
+                         #intfName1=interface_names[0], intfName2=interface_names[1])
+            for host_id in range(settings["HostCount"]):
                 host_ip = gen_host_ip(org_id, host_id)
                 host = self.addHost(gen_host_name(org_id, host_id), ip=host_ip)
                 interface_names = gen_host_switch_infname(org_id, host_id)
-                self.addLink(org_switch, host,
+                print(interface_names)
+                self.addLink(host, org_switch,
                              intfName1=interface_names[0], intfName2=interface_names[1])
 
 
