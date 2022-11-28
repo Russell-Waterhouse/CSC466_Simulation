@@ -1,7 +1,7 @@
 #!/bin/bash
 
 StartMN(){
-	sudo python3 init_mininet_full.py
+	sudo python3 ./mininet/init_mininet_full.py
 	read -p "Press ENTER to finish"
 	clear
 	echo -e "** Mininet stopped **"
@@ -9,7 +9,7 @@ StartMN(){
 }
 
 StartSimpleMN(){
-  sudo python3 init_mininet.py
+  sudo python3 ./mininet/init_mininet.py
 	read -p "Press ENTER to finish"
 	clear
 	echo -e "** Mininet stopped **"

@@ -24,7 +24,7 @@ def main():
     setup_network_traffic(mininet)
 
     print("==== Dumping host connections ====")
-    CLI(mininet, script="mininet_init.sh")
+    CLI(mininet, script="./mininet/mininet_init.sh")
 
     CLI(mininet)
     mininet.stop()
