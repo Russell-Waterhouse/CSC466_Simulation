@@ -24,8 +24,8 @@ def main():
     mininet.start()
 
     print("==== Configure traffic control ====")
-    # configure_org_switches(mininet)
-    # configure_isp(mininet)
+    configure_org_switches(mininet)
+    configure_isp(mininet)
 
     print("==== Dumping host connections ====")
     CLI(mininet, script="mininet_init.sh")
