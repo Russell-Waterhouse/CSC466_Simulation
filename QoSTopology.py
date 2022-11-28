@@ -1,4 +1,3 @@
-from mininet.link import TCULink
 from mininet.topo import Topo
 from util import *
 
