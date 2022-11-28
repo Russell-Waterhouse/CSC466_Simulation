@@ -20,7 +20,12 @@ def get_host_name(org_id, host_id): return f"h{org_id + 1}_{host_id + 1}"
 
 
 # Generate the host ip by org id and host id
-def get_host_ip(org_id, host_id): return f"10.0.{org_id + 1}.{host_id + 1}/48"
+def get_host_ip(org_id, host_id, with_prefix=True):
+    ip = f"10.0.{org_id + 1}.{host_id + 1}"
+    if with_prefix:
+        ip += "/48"
+    print(ip)
+    return ip
 
 
 # Generate the org switch to isp interface name by org id
