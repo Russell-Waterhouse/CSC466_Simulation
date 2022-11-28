@@ -29,7 +29,7 @@
   "RouterInfo":{
     "SimulationSize": {
       "OrgCount" : 2,
-      "HostCount" : 2
+      "HostCount" : 4
     },
     "OrgSwitches": {
       "s0": "s0-eth6",
@@ -43,9 +43,10 @@
     ]
   },
   "NetworkSimulation": {
-    "ParallelConnection" : 3,
+    "ParallelConnection" : 2,
     "PacketCount": 5,
     "PacketFrequency": 2,
-    "ConnectionPort": 8080
+    "ConnectionPort": 8080,
+    "PacketByteSize": 50
   }
 }
