@@ -32,11 +32,11 @@ def setup_clients(mininet):
     for org_id in range(settings["OrgCount"]):
         other_ips = get_other_ips(org_id, settings["OrgCount"], settings["HostCount"])
         for host_id in range(settings["HostCount"]):
-            for ip in other_ips:
-                host_name = util.get_host_name(org_id, host_id)
-                node = mininet[host_name]
-                print(f"Setting up client for {host_name} {ip}")
-                node.cmd(f"python3 ./tcp_connections/client.py {ip} &")
+            host_name = util.get_host_name(org_id, host_id)
+            node = mininet[host_name]
+            ip_str = " ".join(other_ips)
+            print(f"Setting up client for {host_name} {ip_str}")
+            node.cmd(f"python3 ./tcp_connections/client.py {ip_str} &")
 
 
 def setup_network_traffic(mininet):

@@ -5,6 +5,7 @@ import sys
 sys.path.append('../CSC466_Simulation')
 
 import util
+settings = util.get_settings()["NetworkSimulation"]
 
 
 def main():
@@ -28,7 +29,7 @@ def main():
             c, addr = s.accept()
             # name = c.recv(1024).decode()dd
             print('connected with', addr)
-            c.send(bytes.fromhex("FF"))  # 0xFF in ascii
+            c.send(bytes.fromhex("FF") * settings["PacketByteSize"])  # 0xFF in ascii
             c.close()
     finally:
         s.close()
