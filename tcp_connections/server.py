@@ -7,12 +7,15 @@ if len(sys.argv) < 2:
     exit(0)
 
 port = int(sys.argv[1])
+hostname = socket.gethostname()
+IP_addr = socket.gethostbyname(hostname)
+print("Selected IP address is : " + str(IP_addr))
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     print("Socket Created")
     print(s)
-    s.bind(('127.0.0.1', port))
+    s.bind((IP_addr, port))
     s.listen()
     print('waiting for connections')
     while True:
