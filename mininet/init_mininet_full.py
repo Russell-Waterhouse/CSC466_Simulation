@@ -1,5 +1,10 @@
+import sys
+# setting path
+sys.path.append('../CSC466_Simulation')
+
 from QoSTopology import QoSTopology
 from TrafficControl import *
+from tcp_connections.connection_manager import setup_network_traffic
 
 from mininet.net import Mininet
 from mininet.log import setLogLevel
@@ -15,8 +20,11 @@ def main():
     configure_org_switches(mininet)
     configure_isp(mininet)
 
+    print("==== Setup network traffics ====")
+    setup_network_traffic(mininet)
+
     print("==== Dumping host connections ====")
-    CLI(mininet, script="mininet_init.sh")
+    CLI(mininet, script="./mininet/mininet_init.sh")
 
     CLI(mininet)
     mininet.stop()
