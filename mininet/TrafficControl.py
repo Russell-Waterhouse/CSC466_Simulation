@@ -1,3 +1,6 @@
+import sys
+# setting path
+sys.path.append('../CSC466_Simulation')
 from util import *
 
 

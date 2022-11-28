@@ -24,7 +24,7 @@ def setup_servers(mininet):
             host_ip = util.get_host_ip(org_id, host_id, False)
             node = mininet[host_name]
             print(f"Setting up server for {host_name} {host_ip}")
-            node.cmd(f"python3 ./tcp_connections/server.py {host_ip} 8080 &")
+            node.cmd(f"python3 ./tcp_connections/server.py {host_ip} &")
 
 
 def setup_clients(mininet):
@@ -36,7 +36,7 @@ def setup_clients(mininet):
                 host_name = util.get_host_name(org_id, host_id)
                 node = mininet[host_name]
                 print(f"Setting up client for {host_name} {ip}")
-                node.cmd(f"python3 ./tcp_connections/client.py {ip} 8080 &")
+                node.cmd(f"python3 ./tcp_connections/client.py {ip} &")
 
 
 def setup_network_traffic(mininet):

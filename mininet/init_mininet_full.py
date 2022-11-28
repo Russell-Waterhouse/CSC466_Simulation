@@ -1,3 +1,7 @@
+import sys
+# setting path
+sys.path.append('../CSC466_Simulation')
+
 from QoSTopology import QoSTopology
 from TrafficControl import *
 from tcp_connections.connection_manager import setup_network_traffic

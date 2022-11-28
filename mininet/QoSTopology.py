@@ -1,3 +1,7 @@
+import sys
+# setting path
+sys.path.append('../CSC466_Simulation')
+
 from mininet.topo import Topo
 from util import *
 

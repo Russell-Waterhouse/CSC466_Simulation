@@ -44,7 +44,7 @@
   },
   "NetworkSimulation": {
     "ParallelConnection" : 3,
-    "PacketCount": 3,
+    "PacketCount": 5,
     "PacketFrequency": 2,
     "ConnectionPort": 8080
   }
