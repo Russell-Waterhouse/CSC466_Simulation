@@ -41,5 +41,11 @@
     "ISPInterfaces": [
       "s999-eth1", "s999-eth2","s999-eth3", "s999-eth4","s999-eth5"
     ]
+  },
+  "NetworkSimulation": {
+    "ParallelConnection" : 3,
+    "PacketCount": 3,
+    "PacketFrequency": 2,
+    "ConnectionPort": 8080
   }
 }

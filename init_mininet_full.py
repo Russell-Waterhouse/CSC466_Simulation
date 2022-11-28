@@ -17,7 +17,7 @@ def main():
     configure_isp(mininet)
 
     print("==== Setup network traffics ====")
-    #setup_network_traffic(mininet)
+    setup_network_traffic(mininet)
 
     print("==== Dumping host connections ====")
     CLI(mininet, script="mininet_init.sh")

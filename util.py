@@ -24,7 +24,6 @@ def get_host_ip(org_id, host_id, with_prefix=True):
     ip = f"10.0.{org_id + 1}.{host_id + 1}"
     if with_prefix:
         ip += "/48"
-    print(ip)
     return ip
 
 
