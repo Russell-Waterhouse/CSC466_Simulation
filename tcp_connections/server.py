@@ -2,20 +2,18 @@ import socket
 import sys
 
 if len(sys.argv) < 2:
-    print("Please specify the port number in the following format"
-          "\n$ python server.py <port>")
+    print("Please specify the host and port number in the following format"
+          "\n$ python client.py <server> <port>")
     exit(0)
 
-port = int(sys.argv[1])
-hostname = socket.gethostname()
-IP_addr = socket.gethostbyname(hostname)
-print("Selected IP address is : " + str(IP_addr))
+port = int(sys.argv[2])
+host = sys.argv[1]
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     print("Socket Created")
     print(s)
-    s.bind((IP_addr, port))
+    s.bind((host, port))
     s.listen()
     print('waiting for connections')
     while True:
