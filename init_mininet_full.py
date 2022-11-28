@@ -1,6 +1,6 @@
 from QoSTopology import QoSTopology
 from TrafficControl import *
-from connection_manager import setup_network_traffic
+from tcp_connections.connection_manager import setup_network_traffic
 
 from mininet.net import Mininet
 from mininet.log import setLogLevel

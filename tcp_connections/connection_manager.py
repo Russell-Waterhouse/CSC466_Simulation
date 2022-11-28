@@ -1,3 +1,8 @@
+import sys
+
+# setting path
+sys.path.append('../CSC466_Simulation')
+
 import util
 
 
@@ -25,7 +30,7 @@ def setup_servers(mininet):
 def setup_clients(mininet):
     settings = util.get_settings()["RouterInfo"]["SimulationSize"]
     for org_id in range(settings["OrgCount"]):
-        other_ips = get_other_ips(org_id,settings["OrgCount"],settings["HostCount"])
+        other_ips = get_other_ips(org_id, settings["OrgCount"], settings["HostCount"])
         for host_id in range(settings["HostCount"]):
             for ip in other_ips:
                 host_name = util.get_host_name(org_id, host_id)
