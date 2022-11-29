@@ -47,6 +47,11 @@
     "PacketCount": 5,
     "PacketFrequency": 2,
     "ConnectionPort": 8080,
-    "PacketByteSize": 50
+    "PacketByteSize": 50,
+    "PayloadWeights": {
+      "00": 3,
+      "11": 3,
+      "01": 3
+    }
   }
 }

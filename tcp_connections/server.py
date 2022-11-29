@@ -12,14 +12,13 @@ settings = util.get_settings()["NetworkSimulation"]
 def main():
     port = util.get_settings()["NetworkSimulation"]["ConnectionPort"]
 
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 1:
         print("Please specify the host and port number in the following format"
-              "\n$ python server.py <mode, one of {0, 1, 2}> <server IP address>")
+              "\n$ python server.py <server IP address>")
         exit(0)
 
-    mode = int(sys.argv[1])
-
-    host = sys.argv[2]
+    host = sys.argv[1]
+    mode = payload_generator.select_mode()
     payload = payload_generator.generate_payload(mode)
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
