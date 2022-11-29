@@ -32,7 +32,6 @@ def main():
             c, addr = s.accept()
             print('connected with', addr)
             c.send(bytes.fromhex(payload) * settings["PacketByteSize"])
-            print(f"sent payload: {payload}")
             c.close()
     finally:
         s.close()
