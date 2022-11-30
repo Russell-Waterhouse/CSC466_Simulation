@@ -20,7 +20,7 @@ def establish_connection(host):
     for packet_id in range(settings["PacketCount"]):
         c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         c.connect((host, port))
-        c.send(bytes.fromhex(payload) * settings["PacketByteSize"])
+        c.send(bytes.fromhex(payload))
         time.sleep(settings["PacketFrequency"])
 
 

@@ -30,7 +30,7 @@ def main():
         while True:
             c, addr = s.accept()
             print('connected with', addr)
-            c.send(bytes.fromhex(payload) * settings["PacketByteSize"])
+            c.send(bytes.fromhex(payload))
             c.close()
     finally:
         s.close()
