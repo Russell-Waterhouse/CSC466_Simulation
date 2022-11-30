@@ -26,9 +26,8 @@ def main():
         print('waiting for connections')
         while True:
             c, addr = s.accept()
-            # name = c.recv(1024).decode()dd
             print('connected with', addr)
-            c.send(bytes.fromhex("FF") * settings["PacketByteSize"])  # 0xFF in ascii
+            c.send(bytes.fromhex("00") * settings["PacketByteSize"])  # 0xFF in ascii
             c.close()
     finally:
         s.close()

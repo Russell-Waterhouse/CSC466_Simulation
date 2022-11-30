@@ -17,7 +17,7 @@ def establish_connection(host):
     for packet_id in range(settings["PacketCount"]):
         c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         c.connect((host, port))
-        c.send(bytes.fromhex("FF") * settings["PacketByteSize"])  # 0xFF in bytes
+        c.send(bytes.fromhex("00") * settings["PacketByteSize"])  # 0xFF in bytes
         time.sleep(settings["PacketFrequency"])
 
 
