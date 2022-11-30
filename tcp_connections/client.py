@@ -15,8 +15,7 @@ port = settings["ConnectionPort"]
 
 
 def establish_connection(host):
-    mode = payload_generator.select_mode()
-    payload = payload_generator.generate_payload(mode)
+    payload = payload_generator.generate_payload()
     for packet_id in range(settings["PacketCount"]):
         c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         c.connect((host, port))

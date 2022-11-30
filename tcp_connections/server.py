@@ -18,8 +18,7 @@ def main():
         exit(0)
 
     host = sys.argv[1]
-    mode = payload_generator.select_mode()
-    payload = payload_generator.generate_payload(mode)
+    payload = payload_generator.generate_payload()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         print("Socket Created")

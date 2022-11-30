@@ -68,8 +68,8 @@ def setup_prioritization_interface(node, interface, settings=get_settings()["Tra
     # Setup filters
     offset = 40
     for channel_type in [settings['SlowChannel'], settings['MidChannel'], settings['FastChannel']]:
-        command = (f"tc filter add dev {interface} parent 1:0 protocol tcp prio 10 "
-                   f"u32 match u8 {channel_type['Match']} 0xff at {offset} flowid 1:{channel_type['ID']}")
+        command = (f"tc filter add dev {interface} parent 1:0 protocol ip prio {channel_type['Prio']} "
+                   f"u32 match u16 {channel_type['Match']} 0xff at {offset} flowid 1:{channel_type['ID']}")
         print(command)
         node.cmd(command)
 
