@@ -1,22 +1,22 @@
 {
   "TrafficControl": {
     "QoSSettings": {
-      "TotalBandwidth": "100 mbit",
+      "TotalBandwidth": "100mbit",
 
-      "SlowID": "1:10",
+      "SlowID": "10",
       "SlowPort": 100,
-      "SlowRate": "30 mbit",
-      "SlowCeil": "50 mbit",
+      "SlowRate": "30mbit",
+      "SlowCeil": "50mbit",
 
-      "MidID": "1:20",
+      "MidID": "20",
       "MidPort": 200,
-      "MidRate": "50 mbit",
-      "MidCeil": "80 mbit",
+      "MidRate": "50mbit",
+      "MidCeil": "80mbit",
 
-      "FastID": "1:30",
+      "FastID": "30",
       "FastPort": 300,
-      "FastRate": "80 mbit",
-      "FastCeil": "100 mbit"
+      "FastRate": "80mbit",
+      "FastCeil": "100mbit"
     },
     "OrgSettings": {
       "OrgDelay": "100ms 10ms",
@@ -48,5 +48,10 @@
     "PacketFrequency": 2,
     "ConnectionPort": 8080,
     "PacketByteSize": 50
+  },
+  "StartupSettings": {
+    "TrafficControl": true,
+    "TrafficSimulation": false,
+    "RunCustomScriptOnStart": true
   }
 }

@@ -7,13 +7,12 @@ sys.path.append('../CSC466_Simulation')
 import util
 settings = util.get_settings()["NetworkSimulation"]
 
-
 def main():
     port = util.get_settings()["NetworkSimulation"]["ConnectionPort"]
 
     if len(sys.argv) < 1:
-        print("Please specify the host number in the following format"
-              "\n$ python client.py <server> ")
+        print("Please specify the host and port number in the following format"
+              "\n$ python client.py <server>")
         exit(0)
 
     host = sys.argv[1]
