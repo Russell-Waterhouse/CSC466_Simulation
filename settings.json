@@ -1,22 +1,28 @@
 {
   "TrafficControl": {
     "QoSSettings": {
-      "TotalBandwidth": "100 mbit",
-
-      "SlowID": "1:10",
-      "SlowPort": 100,
-      "SlowRate": "30 mbit",
-      "SlowCeil": "50 mbit",
-
-      "MidID": "1:20",
-      "MidPort": 200,
-      "MidRate": "50 mbit",
-      "MidCeil": "80 mbit",
-
-      "FastID": "1:30",
-      "FastPort": 300,
-      "FastRate": "80 mbit",
-      "FastCeil": "100 mbit"
+      "TotalBandwidth": "100mbit",
+      "SlowChannel": {
+        "ID": "10",
+        "Rate": "30mbit",
+        "Ceil": "50mbit",
+        "Prio": "10",
+        "Match": "0x00"
+      },
+      "MidChannel": {
+        "ID": "20",
+        "Rate": "50mbit",
+        "Ceil": "80mbit",
+        "Prio": "5",
+        "Match": "0x55"
+      },
+      "FastChannel": {
+        "ID": "30",
+        "Rate": "80mbit",
+        "Ceil": "100mbit",
+        "Prio": "1",
+        "Match": "0xFF"
+      }
     },
     "OrgSettings": {
       "OrgDelay": "100ms 10ms",
@@ -26,10 +32,10 @@
       "OrgBurstLimit": "20mbit"
     }
   },
-  "RouterInfo":{
+  "RouterInfo": {
     "SimulationSize": {
-      "OrgCount" : 2,
-      "HostCount" : 4
+      "OrgCount": 2,
+      "HostCount": 4
     },
     "OrgSwitches": {
       "s0": "s0-eth6",
@@ -39,19 +45,30 @@
       "s4": "s4-eth6"
     },
     "ISPInterfaces": [
-      "s999-eth1", "s999-eth2","s999-eth3", "s999-eth4","s999-eth5"
+      "s999-eth1",
+      "s999-eth2",
+      "s999-eth3",
+      "s999-eth4",
+      "s999-eth5"
     ]
   },
   "NetworkSimulation": {
-    "ParallelConnection" : 2,
+    "ParallelConnection": 2,
     "PacketCount": 5,
     "PacketFrequency": 2,
     "ConnectionPort": 8080,
+    "PacketByteSize": 50
     "PacketByteSize": 50,
     "PayloadWeights": {
       "00": 3,
       "11": 3,
       "01": 3
     }
+  },
+  "StartupSettings": {
+    "TrafficControl": true,
+    "TrafficSimulation": false,
+    "RunCustomScriptOnStart": true
+
   }
 }

@@ -5,21 +5,18 @@ import sys
 sys.path.append('../CSC466_Simulation')
 
 import util
-import payload_generator
 settings = util.get_settings()["NetworkSimulation"]
-
 
 def main():
     port = util.get_settings()["NetworkSimulation"]["ConnectionPort"]
 
-    if len(sys.argv) <= 1:
-        print("Please specify the host number in the following format"
-              "\n$ python client.py <server> ")
+    if len(sys.argv) < 1:
+        print("Please specify the host and port number in the following format"
+              "\n$ python client.py <server>")
         exit(0)
 
     host = sys.argv[1]
-    mode = payload_generator.select_mode()
-    payload = payload_generator.generate_payload(mode)
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         print("Socket Created")
@@ -30,7 +27,7 @@ def main():
         while True:
             c, addr = s.accept()
             print('connected with', addr)
-            c.send(bytes.fromhex(payload))
+            c.send(bytes.fromhex("00") * settings["PacketByteSize"])  # 0xFF in ascii
             c.close()
     finally:
         s.close()

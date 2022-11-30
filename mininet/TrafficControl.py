@@ -1,4 +1,5 @@
 import sys
+
 # setting path
 sys.path.append('../CSC466_Simulation')
 from util import *
@@ -47,43 +48,41 @@ def configure_isp(mininet, simulation_size=get_settings()["RouterInfo"]["Simulat
 # Set up a interface with 3 class network shaping (For ISP node)
 def setup_prioritization_interface(node, interface, settings=get_settings()["TrafficControl"]["QoSSettings"]):
     # Setup root qdisc
-    node.cmd(f"tc qdisc add dev {interface} root handle 1:0 htb default 30")
+    command = f"tc qdisc add dev {interface} root handle 1:0 htb default 10"
+    print(command)
+    node.cmd(command)
 
-    # Setup speed limiter qdisc
-    node.cmd(f'''tc class add dev {interface} parent 1:0 classid 1:1 \
-    htb rate {settings['TotalBandwidth']} ceil {settings['TotalBandwidth']}''')
+    # Setup speed limiter qdisc, default to fast channel
+    command = (f"tc class add dev {interface} parent 1:0 classid 1:1 "
+               f"htb rate {settings['TotalBandwidth']} ceil {settings['TotalBandwidth']}")
+    print(command)
+    node.cmd(command)
 
     # Setup class speed
-    for (rate, ceil, htb_id) in [
-        (settings['SlowRate'], settings['SlowCeil'], settings['SlowID']),
-        (settings['MidRate'], settings['MidCeil'], settings['MidID']),
-        (settings['FastRate'], settings['FastCeil'], settings['FastID'])
-    ]:
-        node.cmd(f'''tc class add dev {interface} parent 1:1 classid {htb_id} \
-        htb rate {rate} ceil {ceil}''')
+    for channel_type in [settings['SlowChannel'], settings['MidChannel'], settings['FastChannel']]:
+        command = (f"tc class add dev {interface} parent 1:1 classid 1:{channel_type['ID']} "
+                   f"htb rate {channel_type['Rate']} ceil {channel_type['Ceil']}")
+        print(command)
+        node.cmd(command)
 
-    # Setup filters TODO: make match statement
-    # for (port, flow_id) in [
-    #     (settings['SlowPort'], settings['SlowID']),
-    #     (settings['MidPort'], settings['MidID']),
-    #     (settings['FastPort'], settings['FastID'])
-    # ]:
-    #     node.cmd(
-    #         f'''tc filter add dev {interface} parent 1:0 protocol ip prio 10
-    #         u32 match port {port} flowid {flow_id}
-    #         '''
-    #     )
+    # Setup filters
+    offset = 40
+    for channel_type in [settings['SlowChannel'], settings['MidChannel'], settings['FastChannel']]:
+        command = (f"tc filter add dev {interface} parent 1:0 protocol tcp prio 10 "
+                   f"u32 match u8 {channel_type['Match']} 0xff at {offset} flowid 1:{channel_type['ID']}")
+        print(command)
+        node.cmd(command)
 
 
 # Set up
 def setup_delay_interface(node, interface, settings=get_settings()["TrafficControl"]["OrgSettings"]):
     node.cmd(
-        f'''tc qdisc add dev {interface} root handle 1:0 \
-        netem delay {settings['OrgDelay']} loss {settings['OrgLost']}'''
+        f"tc qdisc add dev {interface} root handle 1:0 "
+        f"netem delay {settings['OrgDelay']} loss {settings['OrgLost']}"
     )
     node.cmd(
-        f'''tc qdisc add dev {interface} parent 1:0 handle 2:0 \
-        tbf rate {settings['OrgRate']} burst {settings['OrgBurst']} limit {settings['OrgBurstLimit']}'''
+        f"tc qdisc add dev {interface} parent 1:0 handle 2:0 "
+        f"tbf rate {settings['OrgRate']} burst {settings['OrgBurst']} limit {settings['OrgBurstLimit']}"
     )
 
 

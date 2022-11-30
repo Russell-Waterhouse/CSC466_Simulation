@@ -1,20 +1,13 @@
 #!/bin/bash
 
 StartMN(){
-	sudo python3 ./mininet/init_mininet_full.py
+	sudo python3 ./mininet/init_mininet.py
 	read -p "Press ENTER to finish"
 	clear
 	echo -e "** Mininet stopped **"
 	echo -e "** Consider cleaning cache **\n"
 }
 
-StartSimpleMN(){
-  sudo python3 ./mininet/init_mininet.py
-	read -p "Press ENTER to finish"
-	clear
-	echo -e "** Mininet stopped **"
-	echo -e "** Consider cleaning cache **\n"
-}
 
 CleanMN(){
 	sudo mn -c
@@ -34,7 +27,6 @@ Main(){
 		echo "==== Select mode ===="
 		echo "1) 	Start Mininet"
 		echo "2) 	Clear Mininet"
-		echo "3) 	Simulate Mininet Topology"
 		echo "4) 	Configure settings"
 		echo "0) 	Quit application"
 		read -p "Mode selection: " ModeSelection
@@ -46,9 +38,6 @@ Main(){
 				;;
 			"2")
 				CleanMN
-				;;
-			"3")
-				StartSimpleMN
 				;;
       "4")
 				nano settings.json
