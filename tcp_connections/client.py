@@ -8,16 +8,19 @@ sys.path.append('../CSC466_Simulation')
 
 import time
 import util
+import payload_generator
 
 settings = util.get_settings()["NetworkSimulation"]
 port = settings["ConnectionPort"]
 
 
 def establish_connection(host):
+    mode = payload_generator.select_mode()
+    payload = payload_generator.generate_payload(mode)
     for packet_id in range(settings["PacketCount"]):
         c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         c.connect((host, port))
-        c.send(bytes.fromhex("FF") * settings["PacketByteSize"])  # 0xFF in bytes
+        c.send(bytes.fromhex(payload))
         time.sleep(settings["PacketFrequency"])
 
 
@@ -36,9 +39,9 @@ def connection_loop(servers):
 
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 1:
         print("Please specify the host and port number in the following format"
-              "\n$ python client.py <server> <port>")
+              "\n$ python client.py <servers> ")
         exit(0)
 
     servers = sys.argv[1:]
