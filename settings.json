@@ -57,7 +57,6 @@
     "PacketCount": 5,
     "PacketFrequency": 2,
     "ConnectionPort": 8080,
-    "PacketByteSize": 50
     "PacketByteSize": 50,
     "PayloadWeights": {
       "00": 3,
@@ -67,8 +66,7 @@
   },
   "StartupSettings": {
     "TrafficControl": true,
-    "TrafficSimulation": false,
-    "RunCustomScriptOnStart": true
-
+    "TrafficSimulation": true,
+    "RunCustomScriptOnStart": false
   }
 }

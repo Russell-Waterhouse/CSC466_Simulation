@@ -5,12 +5,13 @@ import sys
 sys.path.append('../CSC466_Simulation')
 
 import util
+
 settings = util.get_settings()["NetworkSimulation"]
 weights = settings["PayloadWeights"]
 total_weight = weights["00"] + weights["11"] + weights["01"]
 
 
-def generate_payload(mode:int) -> str:
+def generate_payload(mode: int) -> str:
     if mode == 0:
         payload = "00"  # 0b00000000
     elif mode == 1:
@@ -23,9 +24,9 @@ def generate_payload(mode:int) -> str:
 
 
 def select_mode() -> int:
-    weight_buffer = total_weight
+    weight_buffer = random.randrange(total_weight)
     for (mode, weight) in weights.items():
         weight_buffer -= weight
-        if weight < 0:
+        if weight_buffer < 0:
             return mode
     return 0
