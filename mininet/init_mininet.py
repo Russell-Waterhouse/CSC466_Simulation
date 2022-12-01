@@ -37,6 +37,9 @@ def main():
     mininet = Mininet(topo=QoSTopology())
     mininet.start()
 
+    print("==== Dumping host connections ====")
+    CLI(mininet, script="./mininet/mininet_init.sh")
+
     if settings["TrafficControl"]:
         configure_tc(mininet)
 
@@ -45,9 +48,6 @@ def main():
 
     if settings["RunCustomScriptOnStart"]:
         run_init_shell(mininet)
-
-    print("==== Dumping host connections ====")
-    CLI(mininet, script="./mininet/mininet_init.sh")
 
     CLI(mininet)
     mininet.stop()
