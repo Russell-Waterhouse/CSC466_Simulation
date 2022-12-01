@@ -1,35 +1,36 @@
 {
   "TrafficControl": {
     "QoSSettings": {
-      "TotalBandwidth": "100mbit",
+      "TotalBandwidth": "1gbit",
+      "DefaultID": "10",
       "SlowChannel": {
         "ID": "10",
-        "Rate": "30mbit",
-        "Ceil": "50mbit",
+        "Rate": "100mbit",
+        "Ceil": "300mbit",
         "Prio": "10",
-        "Match": "0x00"
+        "Match": "1000"
       },
       "MidChannel": {
         "ID": "20",
-        "Rate": "50mbit",
-        "Ceil": "80mbit",
+        "Rate": "500mbit",
+        "Ceil": "800mbit",
         "Prio": "5",
-        "Match": "0x55"
+        "Match": "2000"
       },
       "FastChannel": {
         "ID": "30",
-        "Rate": "80mbit",
-        "Ceil": "100mbit",
+        "Rate": "800mbit",
+        "Ceil": "1gbit",
         "Prio": "1",
-        "Match": "0xFF"
+        "Match": "3000"
       }
     },
     "OrgSettings": {
-      "OrgDelay": "100ms 10ms",
-      "OrgLost": "10%",
-      "OrgRate": "200mbit",
-      "OrgBurst": "10mbit",
-      "OrgBurstLimit": "20mbit"
+      "OrgDelay": "10ms 5ms",
+      "OrgLost": "8%",
+      "OrgRate": "1500bit",
+      "OrgBurst": "100mbit",
+      "OrgBurstLimit": "150mbit"
     }
   },
   "RouterInfo": {
@@ -54,14 +55,13 @@
   },
   "NetworkSimulation": {
     "ParallelConnection": 2,
-    "PacketCount": 5,
+    "PacketCount": 10,
     "PacketFrequency": 2,
-    "ConnectionPort": 8080,
-    "PacketByteSize": 50,
-    "PayloadWeights": {
-      "00": 3,
-      "11": 3,
-      "01": 3
+    "PacketByteSize": 30,
+    "ChannelWeights": {
+      "Slow": 3,
+      "Mid": 3,
+      "Fast": 3
     }
   },
   "StartupSettings": {
