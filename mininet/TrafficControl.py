@@ -48,7 +48,7 @@ def configure_isp(mininet, simulation_size=get_settings()["RouterInfo"]["Simulat
 # Set up a interface with 3 class network shaping (For ISP node)
 def setup_prioritization_interface(node, interface, settings=get_settings()["TrafficControl"]["QoSSettings"]):
     # Setup root qdisc
-    command = f"tc qdisc add dev {interface} root handle 1:0 htb default 10"
+    command = f"tc qdisc add dev {interface} root handle 1:0 htb default {settings['DefaultID']}"
     print(command)
     node.cmd(command)
 
@@ -66,10 +66,14 @@ def setup_prioritization_interface(node, interface, settings=get_settings()["Tra
         node.cmd(command)
 
     # Setup filters
-    offset = 40
     for channel_type in [settings['SlowChannel'], settings['MidChannel'], settings['FastChannel']]:
         command = (f"tc filter add dev {interface} parent 1:0 protocol ip prio {channel_type['Prio']} "
-                   f"u32 match u16 {channel_type['Match']} 0xff at {offset} flowid 1:{channel_type['ID']}")
+                   f"u32 match ip sport {channel_type['Match']} 0xffff flowid 1:{channel_type['ID']}")
+        print(command)
+        node.cmd(command)
+
+        command = (f"tc filter add dev {interface} parent 1:0 protocol ip prio {channel_type['Prio']} "
+                   f"u32 match ip dport {channel_type['Match']} 0xffff flowid 1:{channel_type['ID']}")
         print(command)
         node.cmd(command)
 
