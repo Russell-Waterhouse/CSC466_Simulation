@@ -8,28 +8,30 @@ sys.path.append('../CSC466_Simulation')
 
 import time
 import util
-import payload_generator
+import port_selector
 
 settings = util.get_settings()["NetworkSimulation"]
-port = settings["ConnectionPort"]
+payload = bytes.fromhex("00") * settings["PacketByteSize"]
 
 
-def establish_connection(host):
-    payload = payload_generator.generate_payload()
+def establish_connection(host, port):
     for packet_id in range(settings["PacketCount"]):
         c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         c.connect((host, port))
-        c.send(bytes.fromhex(payload))
+        c.send(payload)
         time.sleep(settings["PacketFrequency"])
 
 
 def connection_loop(servers):
     connections = []
     while True:
-        random_servers = random.sample(servers, settings["ParallelConnection"])
+        sample_size = min(len(servers), settings["ParallelConnection"])
+        random_servers = random.sample(servers, sample_size)
         # Start connections
         for server_ip in random_servers:
-            connection = threading.Thread(target=establish_connection, args=(server_ip,))
+            port = port_selector.generate_port()
+            print(f"Connection to {server_ip} at {port}")
+            connection = threading.Thread(target=establish_connection, args=(server_ip, port))
             connection.start()
             connections.append(connection)
         # Wait for connections to finish
