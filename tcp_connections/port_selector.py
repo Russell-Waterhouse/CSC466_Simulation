@@ -17,8 +17,8 @@ ports = [s["Match"] for s in ports]
 
 
 def generate_port_low() -> int:
-    return port_settings["SlowChannel"]
+    return int(port_settings["SlowChannel"]["Match"])
 
 
 def generate_port_high() -> int:
-    return port_settings["FastChannel"]
+    return int(port_settings["FastChannel"])
