@@ -29,14 +29,13 @@ def establish_connection(host, port):
 def connection_loop(servers):
     connections = []
     while True:
-        random_server = random.sample(servers, 1)
+        server_ip = servers[0]
         # Start connections
-        for server_ip in random_server:
-            port = port_selector.generate_port_high()
-            print(f"Connection to {server_ip} at {port}")
-            connection = threading.Thread(target=establish_connection, args=(server_ip, port))
-            connection.start()
-            connections.append(connection)
+        port = port_selector.generate_port_high()
+        print(f"Connection to {server_ip} at {port}")
+        connection = threading.Thread(target=establish_connection, args=(server_ip, port))
+        connection.start()
+        connections.append(connection)
         # Wait for connections to finish
         for connection in connections:
             connection.join()
