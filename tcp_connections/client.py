@@ -16,9 +16,13 @@ payload = bytes.fromhex("00") * settings["PacketByteSize"]
 
 def establish_connection(host, port):
     for packet_id in range(settings["PacketCount"]):
-        c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        c.connect((host, port))
-        c.send(payload)
+        try:
+            c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            c.connect((host, port))
+            c.send(payload)
+        except ConnectionRefusedError:
+            print("Connection refused, terminating thread")
+            return 0
         time.sleep(settings["PacketFrequency"])
 
 
