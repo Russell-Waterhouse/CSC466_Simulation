@@ -32,7 +32,7 @@ def start_listening(host, port):
 def main():
     if len(sys.argv) <= 1:
         print("Please specify the host number in the following format"
-              "\n$ python client.py <server> ")
+              "\n$ python client_slow.py <server> ")
         exit(0)
 
     host = sys.argv[1]

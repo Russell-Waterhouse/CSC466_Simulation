@@ -16,10 +16,9 @@ ports = [port_settings["SlowChannel"], port_settings["MidChannel"], port_setting
 ports = [s["Match"] for s in ports]
 
 
-def generate_port() -> int:
-    weight_buffer = random.randrange(total_weight)
-    for (port, weight) in zip(ports, weights):
-        weight_buffer -= weight
-        if weight_buffer < 0:
-            return int(port)
-    return ports[0]
+def generate_port_low() -> int:
+    return port_settings["SlowChannel"]
+
+
+def generate_port_high() -> int:
+    return port_settings["FastChannel"]

@@ -35,8 +35,12 @@ def setup_clients(mininet):
             host_name = util.get_host_name(org_id, host_id)
             node = mininet[host_name]
             ip_str = " ".join(other_ips)
-            print(f"Setting up client for {host_name} {ip_str}")
-            node.cmd(f"python3 ./tcp_connections/client.py {ip_str} &")
+            if host_id == 0 and org_id == 1:
+                print(f"Setting up client for {host_name} {ip_str} as the FAST and malicious client")
+                node.cmd(f"python3 ./tcp_connections/client_fast.py {ip_str} &")
+            else:
+                print(f"Setting up client for {host_name} {ip_str} as a slow client")
+                node.cmd(f"python3 ./tcp_connections/client_slow.py {ip_str} &")
 
 
 def setup_network_traffic(mininet):
