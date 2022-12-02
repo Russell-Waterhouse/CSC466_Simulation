@@ -21,4 +21,4 @@ def generate_port_low() -> int:
 
 
 def generate_port_high() -> int:
-    return int(port_settings["FastChannel"])
+    return int(port_settings["FastChannel"]["Match"])
