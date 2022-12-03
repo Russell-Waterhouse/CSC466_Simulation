@@ -32,8 +32,8 @@ def connection_loop(servers):
         sample_size = min(len(servers), settings["ParallelConnection"])
         random_servers = random.sample(servers, sample_size)
         # Start connections
-        for server_ip in random_servers:
-            port = port_selector.generate_port_fast()
+        for server_ip in servers:
+            port = port_selector.generate_port_high()
             print(f"Connection to {server_ip} at {port}")
             connection = threading.Thread(target=establish_connection, args=(server_ip, port))
             connection.start()
