@@ -57,6 +57,7 @@
     "ParallelConnection": 2,
     "PacketCount": 10,
     "PacketFrequency": 2,
+    "AttackerPacketFrequency": 0.5,
     "PacketByteSize": 30,
     "ChannelWeights": {
       "Slow": 3,

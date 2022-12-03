@@ -23,7 +23,7 @@ def establish_connection(host, port):
         except ConnectionRefusedError:
             print("Connection refused, terminating thread")
             return 0
-        time.sleep(settings["PacketFrequency"])
+        time.sleep(settings["AttackerPacketFrequency"])
 
 
 def connection_loop(servers):
