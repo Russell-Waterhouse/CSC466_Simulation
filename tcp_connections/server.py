@@ -22,9 +22,12 @@ def start_listening(host, port):
         print('waiting for connections')
         while True:
             c, addr = s.accept()
-            print('connected with', addr)
-            c.send(payload)
-            c.close()
+            if addr != settings["allowList"]:
+                c.close()
+            else:
+                print('connected with', addr)
+                c.send(payload)
+                c.close()
     finally:
         s.close()
 

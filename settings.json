@@ -62,7 +62,8 @@
       "Slow": 3,
       "Mid": 3,
       "Fast": 3
-    }
+    },
+    "allowList": "10.0.2.1"
   },
   "StartupSettings": {
     "TrafficControl": true,
