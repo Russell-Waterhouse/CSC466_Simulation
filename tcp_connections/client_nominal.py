@@ -33,7 +33,7 @@ def connection_loop(servers):
         random_servers = random.sample(servers, sample_size)
         # Start connections
         for server_ip in random_servers:
-            port = port_selector.generate_port_low()
+            port = port_selector.generate_port_nominal()
             print(f"Connection to {server_ip} at {port}")
             connection = threading.Thread(target=establish_connection, args=(server_ip, port))
             connection.start()
@@ -46,7 +46,7 @@ def connection_loop(servers):
 def main():
     if len(sys.argv) < 1:
         print("Please specify the host and port number in the following format"
-              "\n$ python client_slow.py <servers> ")
+              "\n$ python client_nominal.py <servers> ")
         exit(0)
 
     servers = sys.argv[1:]

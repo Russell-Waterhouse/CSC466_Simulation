@@ -44,7 +44,7 @@ def connection_loop(servers):
 def main():
     if len(sys.argv) < 1:
         print("Please specify the host and port number in the following format"
-              "\n$ python client_slow.py <servers> ")
+              "\n$ python client_nominal.py <servers> ")
         exit(0)
 
     servers = sys.argv[1:]

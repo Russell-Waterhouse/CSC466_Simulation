@@ -40,7 +40,7 @@ def setup_clients(mininet):
                 node.cmd(f"python3 ./tcp_connections/client_fast.py {ip_str} &")
             else:
                 print(f"Setting up client for {host_name} {ip_str} as a slow client")
-                node.cmd(f"python3 ./tcp_connections/client_slow.py {ip_str} &")
+                node.cmd(f"python3 ./tcp_connections/client_nominal.py {ip_str} &")
 
 
 def setup_network_traffic(mininet):
