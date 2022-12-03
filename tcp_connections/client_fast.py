@@ -31,7 +31,10 @@ def connection_loop(servers):
     while True:
         # Start connections
         for server_ip in servers:
-            port = port_selector.generate_port_high()
+            if server_ip == servers[0]:
+                port = port_selector.generate_port_high()
+            else:
+                port = port_selector.generate_port_low()
             print(f"Connection to {server_ip} at {port}")
             connection = threading.Thread(target=establish_connection, args=(server_ip, port))
             connection.start()
