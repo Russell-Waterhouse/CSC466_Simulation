@@ -45,7 +45,7 @@
   },
   "StartupSettings": {
     "TrafficControl": true,
-    "TrafficSimulation": false,
-    "RunCustomScriptOnStart": true
+    "TrafficSimulation": true,
+    "RunCustomScriptOnStart": false
   }
 }
