@@ -80,12 +80,16 @@ def setup_prioritization_interface(node, interface, settings=get_settings()["Tra
 
 # Set up
 def setup_delay_interface(node, interface, settings=get_settings()["TrafficControl"]["OrgSettings"]):
-    command = (f"tc qdisc add dev {interface} root handle 1:0 "
-               f"netem delay {settings['OrgDelay']} loss {settings['OrgLost']}")
+    command = f"tc qdisc add dev {interface} root handle 1:0"
     print(command)
     node.cmd(command)
 
     command = (f"tc qdisc add dev {interface} parent 1:0 handle 2:0 "
+               f"netem delay {settings['OrgDelay']} loss {settings['OrgLost']}")
+    print(command)
+    node.cmd(command)
+
+    command = (f"tc qdisc add dev {interface} parent 2:0 handle 3:0 "
                f"tbf rate {settings['OrgRate']} ceil {settings['OrgRate']} burst {settings['OrgBurst']} limit {settings['OrgBurstLimit']}")
     print(command)
     node.cmd(command)

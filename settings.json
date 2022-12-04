@@ -28,9 +28,9 @@
     "OrgSettings": {
       "OrgDelay": "5ms 2ms",
       "OrgLost": "8%",
-      "OrgRate": "1500mbit",
-      "OrgBurst": "100mbit",
-      "OrgBurstLimit": "150mbit"
+      "OrgRate": "1gbit",
+      "OrgBurst": "10mbit",
+      "OrgBurstLimit": "15mbit"
     }
   },
   "RouterInfo": {
