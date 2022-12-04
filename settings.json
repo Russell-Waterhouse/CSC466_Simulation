@@ -24,34 +24,13 @@
         "Prio": "1",
         "Match": "3000"
       }
-    },
-    "OrgSettings": {
-      "OrgDelay": "5ms 2ms",
-      "OrgLost": "8%",
-      "OrgRate": "1gbit",
-      "OrgBurst": "10mbit",
-      "OrgBurstLimit": "15mbit"
     }
   },
   "RouterInfo": {
     "SimulationSize": {
       "OrgCount": 2,
       "HostCount": 4
-    },
-    "OrgSwitches": {
-      "s0": "s0-eth6",
-      "s1": "s1-eth6",
-      "s2": "s2-eth6",
-      "s3": "s3-eth6",
-      "s4": "s4-eth6"
-    },
-    "ISPInterfaces": [
-      "s999-eth1",
-      "s999-eth2",
-      "s999-eth3",
-      "s999-eth4",
-      "s999-eth5"
-    ]
+    }
   },
   "NetworkSimulation": {
     "ParallelConnection": 2,
