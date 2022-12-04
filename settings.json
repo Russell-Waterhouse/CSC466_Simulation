@@ -13,7 +13,7 @@
       "MidChannel": {
         "ID": "20",
         "Rate": "500mbit",
-        "Ceil": "800mbit",
+        "Ceil": "750mbit",
         "Prio": "5",
         "Match": "2000"
       },
