@@ -15,7 +15,6 @@ from mininet.cli import CLI
 
 def configure_tc(mininet):
     print("==== Configure traffic control ====")
-    configure_org_switches(mininet)
     configure_isp(mininet)
 
 
