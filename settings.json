@@ -1,8 +1,8 @@
 {
   "TrafficControl": {
     "QoSSettings": {
-      "TotalBandwidth": "1gbit",
-      "DefaultID": "10",
+      "TotalBandwidth": "2gbit",
+      "DefaultID": "30",
       "SlowChannel": {
         "ID": "10",
         "Rate": "100mbit",
@@ -13,7 +13,7 @@
       "MidChannel": {
         "ID": "20",
         "Rate": "500mbit",
-        "Ceil": "800mbit",
+        "Ceil": "750mbit",
         "Prio": "5",
         "Match": "2000"
       },
@@ -24,34 +24,13 @@
         "Prio": "1",
         "Match": "3000"
       }
-    },
-    "OrgSettings": {
-      "OrgDelay": "10ms 5ms",
-      "OrgLost": "8%",
-      "OrgRate": "1500bit",
-      "OrgBurst": "100mbit",
-      "OrgBurstLimit": "150mbit"
     }
   },
   "RouterInfo": {
     "SimulationSize": {
       "OrgCount": 2,
       "HostCount": 4
-    },
-    "OrgSwitches": {
-      "s0": "s0-eth6",
-      "s1": "s1-eth6",
-      "s2": "s2-eth6",
-      "s3": "s3-eth6",
-      "s4": "s4-eth6"
-    },
-    "ISPInterfaces": [
-      "s999-eth1",
-      "s999-eth2",
-      "s999-eth3",
-      "s999-eth4",
-      "s999-eth5"
-    ]
+    }
   },
   "NetworkSimulation": {
     "ParallelConnection": 2,
